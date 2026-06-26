@@ -1028,6 +1028,261 @@ body {
 .btn-save-detail:active, .btn-cancel-detail:active { opacity: 0.9; }
 
 /* ==========================================
+   [화면 6] 점안 기록 페이지 스타일링 (신규)
+   ========================================== */
+#page-history-list {
+    background: #F9FAFB; /* 이미지 6의 깨끗하고 정돈된 밝은 그레이 */
+}
+
+.history-header-color {
+    color: var(--text-dark);
+}
+
+.history-header-color .btn-back {
+    color: var(--text-dark);
+}
+
+.btn-bell-header {
+    background: transparent;
+    border: none;
+    color: var(--purple-main);
+    cursor: pointer;
+    padding: 5px;
+}
+
+.header-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.page-count-badge {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.history-list-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 15px 20px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #F2F4F7;
+    margin-bottom: 75px; /* 하단 둥근 버튼을 위한 여백 확보 */
+}
+
+.history-record-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.history-record-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 0;
+    border-bottom: 1.5px solid #F2F4F7;
+}
+
+.history-record-item:last-child {
+    border-bottom: none;
+}
+
+.history-item-time {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.history-item-detail {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+/* 하단 고정 버튼 영역 */
+.history-bottom-bar {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+.btn-to-compliance-page {
+    width: 100%;
+    height: 48px;
+    background: #6E53FF; /* 이미지 6의 고유한 푸른빛이 도는 보라 단추 */
+    border: none;
+    border-radius: 24px;
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(110, 83, 255, 0.35);
+    transition: background-color 0.2s;
+}
+
+.btn-to-compliance-page:active {
+    background-color: #553ad8;
+}
+
+/* ==========================================
+   [화면 7] 점안 준수 현황 페이지 스타일링 (신규)
+   ========================================== */
+#page-compliance {
+    background: #F9FAFB;
+}
+
+.compliance-header-color {
+    color: var(--text-dark);
+}
+
+.compliance-header-color .btn-back {
+    color: var(--text-dark);
+}
+
+/* 날짜 범위 선택바 조작 레이아웃 */
+.compliance-date-selector {
+    background: var(--white);
+    height: 46px;
+    border-radius: 14px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #EAECF0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    margin-bottom: 20px;
+}
+
+.date-arrow {
+    background: transparent;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: var(--purple-main);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.date-arrow:active {
+    background-color: var(--purple-light);
+}
+
+.date-arrow svg {
+    width: 18px;
+    height: 18px;
+}
+
+.date-range-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dark);
+    cursor: pointer;
+}
+
+.icon-calendar {
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
+}
+
+.icon-dropdown-small {
+    width: 14px;
+    height: 14px;
+    color: var(--purple-main);
+}
+
+.btn-more-options {
+    background: transparent;
+    border: none;
+    color: var(--purple-main);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* SVG 차트 컨테이너 */
+.chart-card-container {
+    padding: 20px 16px !important;
+}
+
+.svg-chart-wrapper {
+    width: 100%;
+    height: 200px;
+    margin: 15px 0 10px 0;
+    position: relative;
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.legend-dot.dot-fill {
+    background-color: #6E53FF;
+}
+
+.legend-dot.dot-stroke {
+    border: 2px solid #6E53FF;
+    background-color: var(--white);
+}
+
+/* 하단 준수율 요약 카드 */
+.compliance-summary-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 24px 20px;
+    text-align: center;
+    border: 1px solid #EAECF0;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.summary-percentage {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-dark);
+    letter-spacing: -0.5px;
+}
+
+.summary-counts {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+/* ==========================================
    [화면 1] 점안 알림 팝업 모달
    ========================================== */
 .popup-backdrop {

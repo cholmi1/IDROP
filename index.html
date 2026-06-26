@@ -305,6 +305,110 @@
                             </div>
                         </section>
 
+                        <!-- [화면 6] 점안 기록 페이지 (추가) -->
+                        <section id="page-history-list" class="app-page">
+                            <div class="page-header history-header-color">
+                                <button class="btn-back" data-target="page-home">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                                        <polyline points="12 19 5 12 12 5"></polyline>
+                                    </svg>
+                                </button>
+                                <div class="header-title-container">
+                                    <h2 class="page-title">점안 기록</h2>
+                                    <span class="page-count-badge" id="history-total-badge">총 2,000건 P. 1</span>
+                                </div>
+                                <button class="btn-bell-header" id="btn-header-bell-alarm">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+                                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div class="scroll-container">
+                                <!-- 기록 목록 리스트를 흰색 카드로 구현 -->
+                                <div class="glass-card history-list-card">
+                                    <ul class="history-record-list" id="history-record-container">
+                                        <!-- 동적으로 2023-12-14 12:20:00 / A 안약 1회 형태 렌더링 -->
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- 하단 고정 점안 준수 현황 바로가기 버튼 -->
+                            <div class="history-bottom-bar">
+                                <button class="btn-to-compliance-page" id="btn-to-compliance">점안 준수 현황</button>
+                            </div>
+                        </section>
+
+                        <!-- [화면 7] 점안 준수 현황 페이지 (추가) -->
+                        <section id="page-compliance" class="app-page">
+                            <div class="page-header compliance-header-color">
+                                <button class="btn-back" data-target="page-history-list">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                                        <polyline points="12 19 5 12 12 5"></polyline>
+                                    </svg>
+                                </button>
+                                <h2 class="page-title">점안 준수 현황</h2>
+                                <div style="width: 24px;"></div>
+                            </div>
+
+                            <!-- 상단 날짜 범위 선택 조작 바 -->
+                            <div class="compliance-date-selector">
+                                <button class="date-arrow" id="btn-prev-date-range">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="15 18 9 12 15 6"></polyline>
+                                    </svg>
+                                </button>
+                                <div class="date-range-content">
+                                    <svg class="icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                        <line x1="16" y1="2" x2="16" y2="6"/>
+                                        <line x1="8" y1="2" x2="8" y2="6"/>
+                                        <line x1="3" y1="10" x2="21" y2="10"/>
+                                    </svg>
+                                    <span id="txt-date-range">[2023/12/8] ~ [2023/12/14]</span>
+                                    <svg class="icon-dropdown-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </div>
+                                <button class="date-arrow" id="btn-next-date-range">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </button>
+                                <button class="btn-more-options">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div class="scroll-container">
+                                <!-- 기간별 준수 현황 차트 카드 -->
+                                <div class="glass-card section-card chart-card-container">
+                                    <h3>기간별 준수 현황</h3>
+                                    
+                                    <!-- 정교하게 드로잉될 SVG 차트 컨테이너 -->
+                                    <div class="svg-chart-wrapper" id="svg-chart-wrapper">
+                                        <!-- JS에서 정교한 SVG 코드를 삽입하여 렌더링 -->
+                                    </div>
+
+                                    <!-- 차트 범례 -->
+                                    <div class="chart-legend">
+                                        <span class="legend-item"><span class="legend-dot dot-fill"></span>점안</span>
+                                        <span class="legend-item"><span class="legend-dot dot-stroke"></span>미점안</span>
+                                    </div>
+                                </div>
+
+                                <!-- 하단 준수율 요약 카드 -->
+                                <div class="glass-card compliance-summary-card">
+                                    <h3 class="summary-percentage" id="txt-compliance-rate">점안 준수율 90%</h3>
+                                    <p class="summary-counts" id="txt-compliance-counts">점안 19개 | 미점안 1개</p>
+                                </div>
+                            </div>
+                        </section>
+
                         <!-- [화면 1] 점안 알림 팝업 모달 (전체 화면을 덮음) -->
                         <div class="popup-backdrop" id="alarm-popup">
                             <div class="alarm-modal-card">
@@ -359,7 +463,7 @@
             <!-- 페이지 직접 이동 (순번 가이드) -->
             <div class="guide-card">
                 <h2>1. 페이지 순서대로 탐색하기</h2>
-                <p class="card-desc">요청하신 5개 순번에 맞춘 화면을 직접 강제로 전환하며 확인합니다.</p>
+                <p class="card-desc">요청하신 순번에 맞춘 화면을 직접 강제로 전환하며 확인합니다. (새로 추가된 6~7번 포함)</p>
                 <div class="demo-buttons-grid">
                     <button class="demo-nav-btn" data-page="popup" data-step="1">
                         <span class="step-num">1</span>
@@ -377,9 +481,17 @@
                         <span class="step-num">4</span>
                         <span class="step-name">알림 상세/수정</span>
                     </button>
-                    <button class="demo-nav-btn active" data-page="page-home" data-step="5">
+                    <button class="demo-nav-btn" data-page="page-home" data-step="5">
                         <span class="step-num">5</span>
                         <span class="step-name">메인 홈 화면</span>
+                    </button>
+                    <button class="demo-nav-btn" data-page="page-history-list" data-step="6">
+                        <span class="step-num">6</span>
+                        <span class="step-name">점안 기록 화면</span>
+                    </button>
+                    <button class="demo-nav-btn" data-page="page-compliance" data-step="7">
+                        <span class="step-num">7</span>
+                        <span class="step-name">점안 준수 현황</span>
                     </button>
                 </div>
             </div>
@@ -426,7 +538,9 @@
                     <li>[화면 5] 홈에서 <strong>점안 관리</strong>를 누르면 [화면 2] 안약 관리로 이동합니다.</li>
                     <li>[화면 2]에서 원하는 안약 옆의 <strong>알림 설정</strong>을 누르면 [화면 3]으로 이동합니다.</li>
                     <li>[화면 3] 하단 목록의 약명 옆 <strong>수정</strong>을 누르면 [화면 4]의 상세 편집창으로 진입합니다.</li>
-                    <li>지정 안약 등록이나 알림 추가/삭제를 직접 해보시면 실시간으로 데이터가 반영됩니다.</li>
+                    <li>[화면 5] 홈에서 <strong>기록 확인</strong>을 누르면 새롭게 추가된 [화면 6] 점안 기록으로 이동합니다.</li>
+                    <li>[화면 6] 하단의 <strong>점안 준수 현황</strong>을 누르면 [화면 7] 통계 그래프 화면이 나타납니다.</li>
+                    <li>알림 팝업(1번)에서 <strong>확인 완료</strong>를 누르면 [화면 6]에 실시간으로 기록이 누적 추가됩니다.</li>
                 </ul>
             </div>
         </div>
