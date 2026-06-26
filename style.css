@@ -9,6 +9,9 @@
     --purple-light: #F4F3FF;
     --purple-dark: #4F22B2;
     --blue-main: #3B82F6;
+    --coral-main: #EC8C7A; /* 이미지 8의 고유 산호색(Coral) 테마 */
+    --coral-light: #FDF2F0;
+    --coral-dark: #D46A57;
     --text-dark: #1D2939;
     --text-muted: #667085;
     --white: #FFFFFF;
@@ -70,7 +73,7 @@ body {
 .phone-mockup {
     position: relative;
     width: 375px;
-    height: 812px; /* 아이폰 X/11/12/13 미니 비율 */
+    height: 812px; /* 아이폰 비율 */
     background: #1e1e2d;
     border: 12px solid #2C2C35;
     border-radius: 48px;
@@ -79,7 +82,7 @@ body {
                 inset 0 0 10px rgba(255,255,255,0.1);
     display: flex;
     flex-direction: column;
-    overflow: visible; /* notch와 button이 튀어나와야 함 */
+    overflow: visible;
 }
 
 /* 스피커 & 노치 */
@@ -274,8 +277,14 @@ body {
 .section-card h3 {
     font-size: 16px;
     font-weight: 700;
-    margin-bottom: 15px;
+    margin-bottom: 4px;
     color: var(--text-dark);
+}
+
+.list-guide-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
 }
 
 /* ==========================================
@@ -510,6 +519,13 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer; /* 클릭 리스너 유도 */
+    flex: 1;
+}
+
+.med-info-group:hover .med-name {
+    color: var(--purple-main);
+    text-decoration: underline;
 }
 
 .med-num {
@@ -522,6 +538,7 @@ body {
     font-size: 14px;
     font-weight: 600;
     color: var(--text-dark);
+    transition: color 0.2s;
 }
 
 .med-actions-group {
@@ -559,7 +576,7 @@ body {
 
 .note-card textarea {
     width: 100%;
-    height: 70px;
+    height: 100px;
     border: none;
     background: transparent;
     font-size: 13px;
@@ -671,7 +688,6 @@ body {
     outline: none;
 }
 
-/* 스피너 제거 */
 .qty-input-wrapper input::-webkit-outer-spin-button,
 .qty-input-wrapper input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -738,12 +754,17 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #EAECF0;
+    padding: 10px 14px;
+    background: #FCFCFD;
+    border: 1px solid #EAECF0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
 }
 
-.alarm-sub-item:last-child {
-    border-bottom: none;
+.alarm-sub-item:hover {
+    border-color: var(--purple-main);
+    transform: translateY(-1px);
 }
 
 .alarm-sub-info {
@@ -1028,10 +1049,10 @@ body {
 .btn-save-detail:active, .btn-cancel-detail:active { opacity: 0.9; }
 
 /* ==========================================
-   [화면 6] 점안 기록 페이지 스타일링 (신규)
+   [화면 6] 점안 기록 페이지 스타일링
    ========================================== */
 #page-history-list {
-    background: #F9FAFB; /* 이미지 6의 깨끗하고 정돈된 밝은 그레이 */
+    background: #F9FAFB;
 }
 
 .history-header-color {
@@ -1069,7 +1090,7 @@ body {
     padding: 15px 20px;
     box-shadow: var(--shadow-sm);
     border: 1px solid #F2F4F7;
-    margin-bottom: 75px; /* 하단 둥근 버튼을 위한 여백 확보 */
+    margin-bottom: 75px;
 }
 
 .history-record-list {
@@ -1084,6 +1105,12 @@ body {
     gap: 4px;
     padding: 14px 0;
     border-bottom: 1.5px solid #F2F4F7;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.history-record-item:hover {
+    background-color: #F9F5FF;
 }
 
 .history-record-item:last-child {
@@ -1102,7 +1129,6 @@ body {
     color: var(--text-muted);
 }
 
-/* 하단 고정 버튼 영역 */
 .history-bottom-bar {
     position: absolute;
     bottom: 20px;
@@ -1114,7 +1140,7 @@ body {
 .btn-to-compliance-page {
     width: 100%;
     height: 48px;
-    background: #6E53FF; /* 이미지 6의 고유한 푸른빛이 도는 보라 단추 */
+    background: #6E53FF;
     border: none;
     border-radius: 24px;
     color: var(--white);
@@ -1130,7 +1156,7 @@ body {
 }
 
 /* ==========================================
-   [화면 7] 점안 준수 현황 페이지 스타일링 (신규)
+   [화면 7] 점안 준수 현황 페이지 스타일링
    ========================================== */
 #page-compliance {
     background: #F9FAFB;
@@ -1144,7 +1170,7 @@ body {
     color: var(--text-dark);
 }
 
-/* 날짜 범위 선택바 조작 레이아웃 */
+/* 날짜 범위 선택바 */
 .compliance-date-selector {
     background: var(--white);
     height: 46px;
@@ -1220,7 +1246,7 @@ body {
 
 .svg-chart-wrapper {
     width: 100%;
-    height: 200px;
+    height: 220px;
     margin: 15px 0 10px 0;
     position: relative;
 }
@@ -1276,10 +1302,17 @@ body {
     letter-spacing: -0.5px;
 }
 
+.compliance-formula {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
 .summary-counts {
     font-size: 13px;
     font-weight: 500;
     color: var(--text-muted);
+    margin-top: 2px;
 }
 
 /* ==========================================
@@ -1339,7 +1372,7 @@ body {
 .bell-icon-outer {
     width: 80px;
     height: 80px;
-    background: #6D3FE8; /* 보라 원형 */
+    background: #6D3FE8;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1472,6 +1505,145 @@ body {
     80% { transform: translate(-1px, -1px) rotate(1deg); }
     90% { transform: translate(2px, 2px) rotate(0deg); }
     100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+/* ==========================================
+   [신규] [점안결과] 상세 모달 팝업 (이미지 8 기반)
+   ========================================== */
+.result-modal-card {
+    background: var(--white);
+    border-radius: 28px;
+    width: 100%;
+    max-width: 320px;
+    padding: 24px 20px 0px 20px; /* 패딩 바닥을 0으로 줘서 3분할 단추를 하단에 밀착 */
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    transform: translateY(20px);
+    transition: transform var(--transition-speed);
+}
+
+.popup-backdrop.active .result-modal-card {
+    transform: translateY(0);
+    animation: scaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.result-popup-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #E67E65; /* 이미지 8의 고유한 붉은빛 계열의 산호색 */
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+.result-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.result-form-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.result-form-row.align-start {
+    align-items: flex-start;
+}
+
+.result-label {
+    width: 75px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #4E5968;
+}
+
+.mt-6 {
+    margin-top: 6px;
+}
+
+/* 체크박스 영역 */
+.result-check-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.result-check-text {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+/* 입력 필드 (이미지 8의 특유의 둥근 모서리 연그레이 입력 껍데기) */
+.result-field-input {
+    flex: 1;
+    height: 38px;
+    background-color: #EEF3F3; /* 연한 민트그레이/그레이 톤 */
+    border: none;
+    border-radius: 10px;
+    padding: 0 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+    outline: none;
+}
+
+.result-field-textarea {
+    flex: 1;
+    background-color: #EEF3F3;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+    resize: none;
+    outline: none;
+    line-height: 1.4;
+}
+
+/* 하단 3분할 산호색 밀착 버튼 그룹 */
+.result-popup-buttons {
+    display: flex;
+    margin: 24px -20px 0 -20px; /* 모달 카드 좌우 패딩을 오버라이딩하여 밀착 */
+    width: calc(100% + 40px);
+    height: 48px;
+    background-color: #E88C7D; /* 산호색 배경 */
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.btn-result-action {
+    flex: 1;
+    height: 100%;
+    background: transparent;
+    border: none;
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.35); /* 버튼 구분선 */
+    transition: background-color 0.2s;
+}
+
+.btn-result-action:last-child {
+    border-right: none; /* 마지막 구분선 제거 */
+}
+
+.btn-result-action:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.btn-result-action:active {
+    background-color: rgba(0, 0, 0, 0.08);
 }
 
 
