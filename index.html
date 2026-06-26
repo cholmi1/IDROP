@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDROPM - 안압관리 및 점안 알림 앱</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 좌측: 모바일 기기 시뮬레이터 -->
+        <div class="simulator-section">
+            <div class="phone-mockup">
+                <!-- 스피커 & 카메라 영역 -->
+                <div class="phone-notch"></div>
+                <!-- 볼륨 버튼 -->
+                <div class="phone-btn volume-up"></div>
+                <div class="phone-btn volume-down"></div>
+                <!-- 전원 버튼 -->
+                <div class="phone-btn power"></div>
+                
+                <!-- 화면 영역 -->
+                <div class="phone-screen">
+                    <!-- 상단 시스템 인디케이터 바 -->
+                    <div class="status-bar">
+                        <span class="status-time" id="current-time">09:41</span>
+                        <div class="status-icons">
+                            <!-- LTE 안테나 -->
+                            <svg class="icon-signal" viewBox="0 0 24 24" width="16" height="16">
+                                <rect x="2" y="16" width="3" height="4" rx="0.5" fill="currentColor"/>
+                                <rect x="7" y="12" width="3" height="8" rx="0.5" fill="currentColor"/>
+                                <rect x="12" y="8" width="3" height="12" rx="0.5" fill="currentColor"/>
+                                <rect x="17" y="3" width="3" height="17" rx="0.5" fill="currentColor"/>
+                            </svg>
+                            <!-- Wifi -->
+                            <svg class="icon-wifi" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                <path d="M12 21a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm5.66-5.66a8 8 0 0 0-11.32 0 1 1 0 0 1-1.41-1.41 10 10 0 0 1 14.14 0 1 1 0 0 1-1.41 1.41zm3.53-3.53a13 13 0 0 0-18.38 0 1 1 0 1 1-1.42-1.42 15 15 0 0 1 21.22 0 1 1 0 0 1-1.42 1.42z"/>
+                            </svg>
+                            <!-- 배터리 -->
+                            <div class="battery-icon">
+                                <div class="battery-body"></div>
+                                <div class="battery-tip"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 화면 콘텐츠 (각 화면의 컨테이너) -->
+                    <div class="screen-content">
+                        
+                        <!-- [화면 5] 메인 홈 화면 (기본값) -->
+                        <section id="page-home" class="app-page active">
+                            <div class="home-header">
+                                <h1>IDROPM</h1>
+                                <p class="subtitle">안압 및 점안 스마트 솔루션</p>
+                            </div>
+                            <div class="menu-grid">
+                                <button class="menu-card" id="btn-to-connect">
+                                    <div class="card-icon-wrapper">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="m7 7 10 10-5 5V2l5 5L7 17"/>
+                                        </svg>
+                                    </div>
+                                    <span class="card-title">기기 연결</span>
+                                </button>
+                                <button class="menu-card" id="btn-to-manage">
+                                    <div class="card-icon-wrapper">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                                        </svg>
+                                    </div>
+                                    <span class="card-title">점안 관리</span>
+                                </button>
+                                <button class="menu-card" id="btn-to-history">
+                                    <div class="card-icon-wrapper">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                            <polyline points="14 2 14 8 20 8"/>
+                                            <line x1="16" y1="13" x2="8" y2="13"/>
+                                            <line x1="16" y1="17" x2="8" y2="17"/>
+                                            <polyline points="10 9 9 9 8 9"/>
+                                        </svg>
+                                    </div>
+                                    <span class="card-title">기록 확인</span>
+                                </button>
+                                <button class="menu-card" id="btn-to-send">
+                                    <div class="card-icon-wrapper">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                                        </svg>
+                                    </div>
+                                    <span class="card-title">기록 전송</span>
+                                </button>
+                            </div>
+                            
+                            <!-- 연결 상태 요약 바 -->
+                            <div class="device-status-strip" id="device-status-strip">
+                                <span class="status-dot disconnected"></span>
+                                <span class="status-text">연결된 기기 없음</span>
+                            </div>
+                        </section>
+
+                        <!-- [화면 2] 안약 관리 페이지 -->
+                        <section id="page-medicine" class="app-page">
+                            <div class="page-header">
+                                <button class="btn-back" data-target="page-home">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                                        <polyline points="12 19 5 12 12 5"></polyline>
+                                    </svg>
+                                </button>
+                                <h2 class="page-title">안약 관리</h2>
+                                <div style="width: 24px;"></div> <!-- 좌우 균형용 임시 스페이서 -->
+                            </div>
+                            
+                            <div class="scroll-container">
+                                <!-- 안약 설정 카드 -->
+                                <div class="glass-card section-card">
+                                    <h3>안약 설정</h3>
+                                    <div class="input-row">
+                                        <div class="custom-select-wrapper">
+                                            <select id="med-select">
+                                                <option value="" disabled selected>선택</option>
+                                                <option value="오클라에스 점안액">오클라에스 점안액</option>
+                                                <option value="리프레쉬 플러스">리프레쉬 플러스</option>
+                                                <option value="코솝에스 점안액">코솝에스 점안액</option>
+                                                <option value="알파간피 점안액">알파간피 점안액</option>
+                                                <option value="직접 입력">직접 입력</option>
+                                            </select>
+                                        </div>
+                                        <input type="text" id="med-input" placeholder="안약명 입력" class="med-text-input hidden">
+                                        <button class="btn-qr" id="btn-qr-scan" title="QR 코드 스캔">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <rect x="3" y="3" width="7" height="7" />
+                                                <rect x="14" y="3" width="7" height="7" />
+                                                <rect x="14" y="14" width="7" height="7" />
+                                                <rect x="3" y="14" width="7" height="7" />
+                                                <path d="M7 7h.01M17 7h.01M17 17h.01M7 17h.01" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <button class="btn-primary-small" id="btn-add-medicine">지정 안약 등록</button>
+                                </div>
+
+                                <!-- 지정 안약 목록 카드 -->
+                                <div class="glass-card section-card">
+                                    <h3>지정 안약</h3>
+                                    <ul class="medicine-list" id="medicine-list-container">
+                                        <!-- 동적 생성 혹은 초기 3개 기본 데이터 로드 -->
+                                    </ul>
+                                </div>
+
+                                <!-- Note 카드 -->
+                                <div class="glass-card section-card note-card">
+                                    <h3>Note</h3>
+                                    <p class="note-subtitle">(지정안약에 대한 설명)</p>
+                                    <textarea id="med-notes" placeholder="지정 안약에 대한 참고사항이나 의사 지시 사항을 적어주세요."></textarea>
+                                    <div class="note-deco-lines">
+                                        <div class="line"></div>
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- [화면 3] 알림 설정 목록 페이지 -->
+                        <section id="page-alarm-list" class="app-page">
+                            <div class="page-header">
+                                <button class="btn-back" data-target="page-medicine">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                                        <polyline points="12 19 5 12 12 5"></polyline>
+                                    </svg>
+                                </button>
+                                <h2 class="page-title">알림 설정</h2>
+                                <div style="width: 24px;"></div>
+                            </div>
+                            
+                            <div class="scroll-container">
+                                <!-- 신규 알림 간편 설정 -->
+                                <div class="glass-card section-card">
+                                    <div class="form-group row-group">
+                                        <div class="select-box-wrapper">
+                                            <select id="alarm-med-select">
+                                                <!-- 지정 안약 목록이 동적으로 여기에 연동됨 -->
+                                            </select>
+                                        </div>
+                                        <button class="btn-barcode" id="btn-barcode-scan" title="바코드 스캔">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <line x1="3" y1="5" x2="3" y2="19"/>
+                                                <line x1="6" y1="5" x2="6" y2="19"/>
+                                                <line x1="10" y1="5" x2="10" y2="19"/>
+                                                <line x1="14" y1="5" x2="14" y2="19"/>
+                                                <line x1="17" y1="5" x2="17" y2="19"/>
+                                                <line x1="21" y1="5" x2="21" y2="19"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="form-group row-group mt-10">
+                                        <div class="qty-input-wrapper">
+                                            <span>투여량 (</span>
+                                            <input type="number" id="alarm-dose-input" value="1" min="1" max="9">
+                                            <span>) 회</span>
+                                        </div>
+                                        <button class="btn-save-alarm" id="btn-quick-save-alarm">저장</button>
+                                    </div>
+                                </div>
+
+                                <!-- 설정 목록 영역 -->
+                                <div class="glass-card section-card alarm-list-card">
+                                    <h3>설정 목록</h3>
+                                    
+                                    <!-- 메인 대표 알림 카드 (디자인 강조용) -->
+                                    <div class="main-alarm-banner" id="main-alarm-banner">
+                                        <div class="alarm-time-large">
+                                            <svg class="icon-clock-purple" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="12" cy="12" r="10"/>
+                                                <polyline points="12 6 12 12 16 14"/>
+                                            </svg>
+                                            <span id="banner-time">AM 11:00</span>
+                                        </div>
+                                        <div class="alarm-days-text" id="banner-days">요일 - 월, 수, 금</div>
+                                    </div>
+
+                                    <!-- 하단 약명 목록 및 상세 수정 리스트 -->
+                                    <ul class="alarm-sub-list" id="alarm-sub-list-container">
+                                        <!-- 동적으로 렌더링 (1. 약명: A... [수정]) -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- [화면 4] 알림 설정 상세/수정 페이지 -->
+                        <section id="page-alarm-detail" class="app-page">
+                            <div class="page-header">
+                                <button class="btn-back" data-target="page-alarm-list">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                                        <polyline points="12 19 5 12 12 5"></polyline>
+                                    </svg>
+                                </button>
+                                <h2 class="page-title">알림 설정</h2>
+                                <div style="width: 24px;"></div>
+                            </div>
+
+                            <div class="scroll-container">
+                                <div class="glass-card edit-container">
+                                    <!-- 약명 -->
+                                    <div class="edit-field-group">
+                                        <label>약명 :</label>
+                                        <input type="text" id="edit-alarm-name" value="A" placeholder="약명을 입력하세요">
+                                    </div>
+
+                                    <!-- 투여량 -->
+                                    <div class="edit-field-group">
+                                        <label>투여량 :</label>
+                                        <div class="dose-selector">
+                                            <input type="number" id="edit-alarm-dose" value="1" min="1">
+                                            <span>회</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- 매일 설정 및 시간 입력 -->
+                                    <div class="edit-field-group time-row">
+                                        <div class="time-picker-wrapper">
+                                            <input type="time" id="edit-alarm-time" value="10:00">
+                                            <span class="time-label">매일 <span id="display-time-val">10:00</span></span>
+                                        </div>
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="edit-alarm-everyday" checked>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+
+                                    <!-- 당일 요일 선택 -->
+                                    <div class="day-selector-section">
+                                        <label class="section-label">당일</label>
+                                        <div class="day-buttons-grid">
+                                            <button class="day-btn" data-day="0">일</button>
+                                            <button class="day-btn active" data-day="1">월</button>
+                                            <button class="day-btn" data-day="2">화</button>
+                                            <button class="day-btn active" data-day="3">수</button>
+                                            <button class="day-btn active" data-day="4">목</button>
+                                            <button class="day-btn" data-day="5">금</button>
+                                            <button class="day-btn" data-day="6">토</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- 알림 방법 -->
+                                    <div class="alert-type-section">
+                                        <label class="section-label">알림방법</label>
+                                        <div class="alert-buttons-group">
+                                            <button class="alert-btn active" id="alert-method-sound">[소리]</button>
+                                            <button class="alert-btn" id="alert-method-vibe">[진동]</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 하단 액션 버튼 -->
+                                    <div class="edit-actions-row">
+                                        <button class="btn-save-detail" id="btn-save-alarm-detail">저장</button>
+                                        <button class="btn-cancel-detail" id="btn-cancel-alarm-detail">취소</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- [화면 1] 점안 알림 팝업 모달 (전체 화면을 덮음) -->
+                        <div class="popup-backdrop" id="alarm-popup">
+                            <div class="alarm-modal-card">
+                                <!-- 시계/벨 보라색 아이콘 원 -->
+                                <div class="bell-icon-outer">
+                                    <div class="bell-icon-inner">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                                            <circle cx="12" cy="12" r="10" stroke-dasharray="2 2" stroke="none"/>
+                                        </svg>
+                                        <!-- 벨 흔들림 효과용 미니 벨 -->
+                                        <div class="mini-bell">🔔</div>
+                                    </div>
+                                </div>
+                                
+                                <h2 class="popup-title">점안 알림</h2>
+                                <p class="popup-subtitle">아래와 같이 점안하세요</p>
+
+                                <div class="popup-info-table">
+                                    <div class="info-row">
+                                        <span class="info-label">예약시간</span>
+                                        <span class="info-value highlight-time" id="popup-time">PM 11:33</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">안약</span>
+                                        <span class="info-value" id="popup-med">A 안약</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">점안량</span>
+                                        <span class="info-value" id="popup-dose">1회</span>
+                                    </div>
+                                </div>
+
+                                <button class="btn-popup-confirm" id="btn-close-popup">확인 완료</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 우측: 데모 가이드 및 페이지 강제 전환 컨트롤러 -->
+        <div class="guide-section">
+            <header class="guide-header">
+                <span class="badge">PROTOTYPE DEMO</span>
+                <h1>IDROPM 안압관리 앱</h1>
+                <p>제공된 5장의 화면 설계를 기반으로 제작된 인터랙티브 프로토타입입니다. 좌측 가상 스마트폰 안에서 실제 동작을 확인할 수 있습니다.</p>
+            </header>
+
+            <!-- 페이지 직접 이동 (순번 가이드) -->
+            <div class="guide-card">
+                <h2>1. 페이지 순서대로 탐색하기</h2>
+                <p class="card-desc">요청하신 5개 순번에 맞춘 화면을 직접 강제로 전환하며 확인합니다.</p>
+                <div class="demo-buttons-grid">
+                    <button class="demo-nav-btn" data-page="popup" data-step="1">
+                        <span class="step-num">1</span>
+                        <span class="step-name">점안 알림 팝업</span>
+                    </button>
+                    <button class="demo-nav-btn" data-page="page-medicine" data-step="2">
+                        <span class="step-num">2</span>
+                        <span class="step-name">안약 관리</span>
+                    </button>
+                    <button class="demo-nav-btn" data-page="page-alarm-list" data-step="3">
+                        <span class="step-num">3</span>
+                        <span class="step-name">알림 설정 목록</span>
+                    </button>
+                    <button class="demo-nav-btn" data-page="page-alarm-detail" data-step="4">
+                        <span class="step-num">4</span>
+                        <span class="step-name">알림 상세/수정</span>
+                    </button>
+                    <button class="demo-nav-btn active" data-page="page-home" data-step="5">
+                        <span class="step-num">5</span>
+                        <span class="step-name">메인 홈 화면</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 시뮬레이션 동작 테스트 -->
+            <div class="guide-card">
+                <h2>2. 인터랙티브 기능 시뮬레이션</h2>
+                <p class="card-desc">실제 기기처럼 동작하는 이벤트를 직접 발생시켜 볼 수 있습니다.</p>
+                
+                <div class="sim-actions-list">
+                    <!-- 블루투스 테스트 -->
+                    <div class="sim-action-item">
+                        <div class="sim-info">
+                            <strong>블루투스 기기 연결 데모</strong>
+                            <span>스마트 안압계와의 가상 페어링 프로세스를 구동합니다.</span>
+                        </div>
+                        <button class="btn-sim" id="sim-btn-bluetooth">연결 시작</button>
+                    </div>
+
+                    <!-- 알림 타이머 시뮬레이션 -->
+                    <div class="sim-action-item">
+                        <div class="sim-info">
+                            <strong>3초 후 가상 점안 알림 발생</strong>
+                            <span>타이머를 통해 예약 시간이 되었을 때의 알림 팝업(1번)을 발생시킵니다.</span>
+                        </div>
+                        <button class="btn-sim" id="sim-btn-alarm-trigger">예약 알림 테스트</button>
+                    </div>
+
+                    <!-- 데이터 초기화 -->
+                    <div class="sim-action-item">
+                        <div class="sim-info">
+                            <strong>데모 데이터 초기화</strong>
+                            <span>등록된 모든 안약, 알림 설정을 이미지 원본 기준으로 복원합니다.</span>
+                        </div>
+                        <button class="btn-sim btn-danger" id="sim-btn-reset">초기 데이터로 리셋</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 스마트폰 조작 안내 -->
+            <div class="guide-card info-card">
+                <h3>💡 실제 흐름대로 조작해보기</h3>
+                <ul>
+                    <li>[화면 5] 홈에서 <strong>점안 관리</strong>를 누르면 [화면 2] 안약 관리로 이동합니다.</li>
+                    <li>[화면 2]에서 원하는 안약 옆의 <strong>알림 설정</strong>을 누르면 [화면 3]으로 이동합니다.</li>
+                    <li>[화면 3] 하단 목록의 약명 옆 <strong>수정</strong>을 누르면 [화면 4]의 상세 편집창으로 진입합니다.</li>
+                    <li>지정 안약 등록이나 알림 추가/삭제를 직접 해보시면 실시간으로 데이터가 반영됩니다.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 스캔 시뮬레이션 오버레이 (QR / 바코드 용) -->
+    <div class="scanner-overlay" id="scanner-overlay">
+        <div class="scanner-box">
+            <div class="scanner-line"></div>
+            <p class="scanner-text">의약품 코드 스캔 중...</p>
+        </div>
+    </div>
+
+    <!-- 가상 오디오 (효과음 시뮬레이션용 브라우저 신디사이저) -->
+    <script src="app.js"></script>
+</body>
+</html>
