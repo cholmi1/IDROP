@@ -52,8 +52,16 @@
                         <!-- [화면 5] 메인 홈 화면 (기본값) -->
                         <section id="page-home" class="app-page active">
                             <div class="home-header">
+                                <!-- 우측 상단에 사용 가이드(ℹ️) 정보 버튼 신설 -->
+                                <button class="btn-info-header" id="btn-home-info" title="사용 가이드">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="16" x2="12" y2="12"/>
+                                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                                    </svg>
+                                </button>
                                 <h1>IDROPM</h1>
-                                <p class="subtitle">안압 및 점안 스마트 솔루션</p>
+                                <p class="subtitle">점안 스마트 솔루션</p>
                             </div>
                             <div class="menu-grid">
                                 <button class="menu-card" id="btn-to-connect">
@@ -397,7 +405,7 @@
                                 <!-- 기간별 준수 현황 차트 카드 -->
                                 <div class="glass-card section-card chart-card-container">
                                     <h3>기간별 준수 현황</h3>
-                                    <p class="list-guide-desc">* X축은 24시간, Y축은 일자를 나타내며 점을 클릭해 상세 편집이 가능합니다.</p>
+                                    <p class="list-guide-desc">표의 점을 클릭하면 상세 화면을 볼수 있습니다.</p>
                                     
                                     <!-- 24시간 X축 - 일자 Y축 SVG 차트 컨테이너 -->
                                     <div class="svg-chart-wrapper" id="svg-chart-wrapper">
@@ -420,7 +428,123 @@
                             </div>
                         </section>
 
-                        <!-- [화면 1] 점안 알림 팝업 모달 -->
+                        <!-- [신규] [화면 8] 앱 가이드 도움말 페이지 -->
+                        <section id="page-app-guide" class="app-page">
+                            <div class="page-header guide-header-color">
+                                <button class="btn-back" data-target="page-home">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                                        <polyline points="12 19 5 12 12 5"></polyline>
+                                    </svg>
+                                </button>
+                                <h2 class="page-title">사용 가이드</h2>
+                                <div style="width: 24px;"></div>
+                            </div>
+
+                            <div class="scroll-container">
+                                <p class="guide-intro-txt">각 항목을 탭하여 페이지별 기능 요약 가이드를 확인하세요.</p>
+                                
+                                <div class="guide-accordion-container">
+                                    <!-- 1. 점안 알림 팝업 -->
+                                    <div class="guide-collapse-card">
+                                        <div class="guide-card-header">
+                                            <span class="guide-badge-num">1</span>
+                                            <h4>점안 알림 팝업</h4>
+                                            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                                        </div>
+                                        <div class="guide-card-body">
+                                            <p>예약된 시각에 스마트폰 화면 위에 전체 모달창으로 뜨는 알림입니다. 예약 시간, 약물 정보 및 횟수가 표기되며, 설정된 알림 형태에 맞추어 실제 사운드음 재생과 모바일 프레임 진동 애니메이션이 가동됩니다.</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- 2. 안약 관리 -->
+                                    <div class="guide-collapse-card">
+                                        <div class="guide-card-header">
+                                            <span class="guide-badge-num">2</span>
+                                            <h4>안약 관리</h4>
+                                            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                                        </div>
+                                        <div class="guide-card-body">
+                                            <p>사용자가 지정한 안약들을 추가, 삭제, 수정하는 공간입니다. 드롭다운 선택 또는 텍스트로 직접 안약을 등록할 수 있으며, 등록된 안약명을 탭하면 하단 Note에 <strong>식약처 등록 성분 및 효능 가이드가 자동으로 기술</strong>되는 정밀 기능이 작동합니다.</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- 3. 알림 설정 목록 -->
+                                    <div class="guide-collapse-card">
+                                        <div class="guide-card-header">
+                                            <span class="guide-badge-num">3</span>
+                                            <h4>알림 설정 목록</h4>
+                                            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                                        </div>
+                                        <div class="guide-card-body">
+                                            <p>안약별 투여 스케줄 목록을 일목요연하게 표시합니다. 하단 리스트의 개별 알림 요소를 마우스로 클릭하면 상단의 대표 시간 배너 카드의 시간과 요일이 <strong>해당 정보로 실시간 연계 교체 갱신</strong>되는 리액티브 뷰를 제공합니다.</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- 4. 알림 상세/수정 -->
+                                    <div class="guide-collapse-card">
+                                        <div class="guide-card-header">
+                                            <span class="guide-badge-num">4</span>
+                                            <h4>알림 상세/수정</h4>
+                                            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                                        </div>
+                                        <div class="guide-card-body">
+                                            <p>알림의 개별 튜닝 폼입니다. "매일" 체크박스 활성화 시 일~토 전체 요일이 일괄 연동하여 제어되며, 알림 방법(소리/진동)을 개별 토글하여 <strong>소리와 진동 동시 작동 형태</strong>로 정밀 설정할 수 있습니다.</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- 5. 메인 홈 화면 -->
+                                    <div class="guide-collapse-card">
+                                        <div class="guide-card-header">
+                                            <span class="guide-badge-num">5</span>
+                                            <h4>메인 홈 화면</h4>
+                                            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                                        </div>
+                                        <div class="guide-card-body">
+                                            <p>앱의 시작 허브 화면입니다. 실제 모바일 기기처럼 실시간 기기 표준 시간, LTE 신호바, 배터리 아이콘이 연동되며, 스마트 안압측정 기기와의 블루투스(Bluetooth) 페어링 및 연결 성공 모션을 가상 구동합니다.</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- 6. 점안 기록 화면 -->
+                                    <div class="guide-collapse-card">
+                                        <div class="guide-card-header">
+                                            <span class="guide-badge-num">6</span>
+                                            <h4>점안 기록 화면</h4>
+                                            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                                        </div>
+                                        <div class="guide-card-body">
+                                            <p>역대 점안 및 미점안 수행 이력이 리스트 형식으로 저장되는 타임로그입니다. 알림창에서 점안을 완료하면 이력에 자동 추가되며, <strong>리스트의 개별 기록을 누르면 점안결과 상세 팝업이 노출</strong>되어 수정/삭제할 수 있습니다.</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- 7. 점안 준수 현황 -->
+                                    <div class="guide-collapse-card">
+                                        <div class="guide-card-header">
+                                            <span class="guide-badge-num">7</span>
+                                            <h4>점안 준수 현황</h4>
+                                            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                                        </div>
+                                        <div class="guide-card-body">
+                                            <p>X축은 1일 24시간, Y축은 일자 격자로 정렬하여 가로선상에 점안 수행 완료(●) 및 미점안(○) 상태를 플롯하는 2D 격자형 통계 차트입니다. 포인트 터치 시 편집 창이 연동되며, <strong>실제 수학 통계 공식을 기재한 실시간 준수율 수치 카드</strong>가 연계 제공됩니다.</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- 8. 점안 결과 팝업 -->
+                                    <div class="guide-collapse-card">
+                                        <div class="guide-card-header">
+                                            <span class="guide-badge-num">8</span>
+                                            <h4>점안 결과 팝업</h4>
+                                            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                                        </div>
+                                        <div class="guide-card-body">
+                                            <p>이력 리스트나 차트 포인트를 클릭하면 나타나는 이미지 8 사양 기반 산호색(Coral) 팝업입니다. 완료유무, 날짜, 시각, 기기, 약명을 직접 키인(Key-in)해 수정하거나 점안 수행 데이터 자체를 삭제(파기) 제어할 수 있습니다.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- [화면 1] 점안 알림 팝업 모달 (전체 화면을 덮음) -->
                         <div class="popup-backdrop" id="alarm-popup">
                             <div class="alarm-modal-card">
                                 <div class="bell-icon-outer">
@@ -526,25 +650,25 @@
                 <h2>1. 페이지 순서대로 탐색하기</h2>
                 <p class="card-desc">요청하신 순번에 맞춘 화면을 직접 강제로 전환하며 확인합니다.</p>
                 <div class="demo-buttons-grid">
-                    <button class="demo-nav-btn" data-page="popup" data-step="1">
+                    <button class="demo-nav-btn active" data-page="page-home" data-step="1">
                         <span class="step-num">1</span>
-                        <span class="step-name">점안 알림 팝업</span>
+                        <span class="step-name">메인 홈화면</span>
                     </button>
                     <button class="demo-nav-btn" data-page="page-medicine" data-step="2">
                         <span class="step-num">2</span>
-                        <span class="step-name">안약 관리</span>
+                        <span class="step-name">안약관리</span>
                     </button>
                     <button class="demo-nav-btn" data-page="page-alarm-list" data-step="3">
                         <span class="step-num">3</span>
-                        <span class="step-name">알림 설정 목록</span>
+                        <span class="step-name">알림설정 목록</span>
                     </button>
                     <button class="demo-nav-btn" data-page="page-alarm-detail" data-step="4">
                         <span class="step-num">4</span>
-                        <span class="step-name">알림 상세/수정</span>
+                        <span class="step-name">알림상세/수정</span>
                     </button>
-                    <button class="demo-nav-btn" data-page="page-home" data-step="5">
+                    <button class="demo-nav-btn" data-page="popup" data-step="5">
                         <span class="step-num">5</span>
-                        <span class="step-name">메인 홈 화면</span>
+                        <span class="step-name">점안 알림 팝업</span>
                     </button>
                     <button class="demo-nav-btn" data-page="page-history-list" data-step="6">
                         <span class="step-num">6</span>
@@ -553,6 +677,10 @@
                     <button class="demo-nav-btn" data-page="page-compliance" data-step="7">
                         <span class="step-num">7</span>
                         <span class="step-name">점안 준수 현황</span>
+                    </button>
+                    <button class="demo-nav-btn" data-page="page-app-guide" data-step="8">
+                        <span class="step-num">8</span>
+                        <span class="step-name">설명서</span>
                     </button>
                 </div>
             </div>
@@ -596,11 +724,11 @@
             <div class="guide-card info-card">
                 <h3>💡 실제 흐름대로 조작해보기</h3>
                 <ul>
+                    <li>[화면 5] 홈화면의 우측 상단 <strong>ℹ️(정보) 단추</strong>를 탭하면 [화면 8] 가이드 페이지로 이동합니다.</li>
+                    <li>[화면 8] 가이드 항목을 누르면 <strong>아코디언 형태</strong>로 상세 가이드가 전개됩니다.</li>
                     <li>[화면 2]에서 지정 안약 이름을 클릭하면 하단 <strong>Note</strong>에 식약처 정보 요약이 자동 기술됩니다.</li>
                     <li>[화면 3] 하단 목록을 클릭하면 상단 <strong>설정 목록 배너</strong>의 예약시간이 즉시 동적 갱신됩니다.</li>
                     <li>[화면 6] 리스트나 [화면 7] 차트 위의 점을 클릭하면 <strong>[점안결과] 상세 팝업</strong>(이미지 8 사양)이 노출됩니다.</li>
-                    <li>[화면 7]의 X축은 <strong>24시간</strong>, Y축은 <strong>일자</strong>를 나타내어 일자별 수행 시각이 2차원 분산 도트로 정확하게 플롯됩니다.</li>
-                    <li>[화면 7] 준수율 카드에 <strong>실제 통계 연계 수학적 계산식</strong>이 보조 텍스트로 노출됩니다.</li>
                 </ul>
             </div>
         </div>
