@@ -632,6 +632,39 @@
                             </div>
                         </div>
 
+                        <!-- [신규] [기간 설정] 팝업 모달 (달력 클릭 시 노출) -->
+                        <div class="popup-backdrop" id="period-select-popup">
+                            <div class="period-modal-card">
+                                <h2 class="period-popup-title">기간 설정</h2>
+                                <p class="period-popup-subtitle">조회할 기간을 설정하세요</p>
+                                
+                                <div class="period-form-container">
+                                    <!-- 시작일 -->
+                                    <div class="period-form-row">
+                                        <span class="period-label">시작일</span>
+                                        <input type="date" class="period-field-input" id="period-start-date" value="2023-12-08">
+                                    </div>
+                                    <!-- 종료일 -->
+                                    <div class="period-form-row">
+                                        <span class="period-label">종료일</span>
+                                        <input type="date" class="period-field-input" id="period-end-date" value="2023-12-14">
+                                    </div>
+                                    
+                                    <!-- 프리셋 단추 그룹 -->
+                                    <div class="period-presets">
+                                        <button class="btn-preset-date" id="btn-preset-current-week">최근 7일 (12/8 ~ 12/14)</button>
+                                        <button class="btn-preset-date" id="btn-preset-prev-week">이전 주간 (12/1 ~ 12/7)</button>
+                                    </div>
+                                </div>
+                                
+                                <!-- 하단 버튼 그룹 (2분할 적용/취소) -->
+                                <div class="period-popup-buttons">
+                                    <button class="btn-period-action" id="btn-period-save">적용</button>
+                                    <button class="btn-period-action" id="btn-period-cancel">취소</button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

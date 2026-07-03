@@ -1061,6 +1061,104 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ------------------------------------------
+    // [신규] [기간 설정] 팝업 제어 및 날짜 범위 연동 리스너
+    // ------------------------------------------
+    const periodSelectPopup = document.getElementById('period-select-popup');
+    const dateRangeBtn = document.querySelector('.date-range-content');
+    
+    if (dateRangeBtn && periodSelectPopup) {
+        dateRangeBtn.addEventListener('click', () => {
+            // 현재 상태의 시작일과 종료일 계산 후 Input에 주입
+            if (appState.currentWeekDates && appState.currentWeekDates.length > 0) {
+                const startShort = appState.currentWeekDates[0];
+                const endShort = appState.currentWeekDates[appState.currentWeekDates.length - 1];
+                
+                const startParts = startShort.split('/');
+                const endParts = endShort.split('/');
+                
+                const startFormatted = `2023-${startParts[0].padStart(2, '0')}-${startParts[1].padStart(2, '0')}`;
+                const endFormatted = `2023-${endParts[0].padStart(2, '0')}-${endParts[1].padStart(2, '0')}`;
+                
+                document.getElementById('period-start-date').value = startFormatted;
+                document.getElementById('period-end-date').value = endFormatted;
+            }
+            periodSelectPopup.classList.add('active');
+        });
+    }
+
+    // 취소 버튼
+    document.getElementById('btn-period-cancel').addEventListener('click', () => {
+        periodSelectPopup.classList.remove('active');
+    });
+
+    // 프리셋 버튼: 최근 7일 (12/8 ~ 12/14)
+    document.getElementById('btn-preset-current-week').addEventListener('click', () => {
+        document.getElementById('period-start-date').value = "2023-12-08";
+        document.getElementById('period-end-date').value = "2023-12-14";
+    });
+
+    // 프리셋 버튼: 이전 주간 (12/1 ~ 12/7)
+    document.getElementById('btn-preset-prev-week').addEventListener('click', () => {
+        document.getElementById('period-start-date').value = "2023-12-01";
+        document.getElementById('period-end-date').value = "2023-12-07";
+    });
+
+    // 적용 버튼
+    document.getElementById('btn-period-save').addEventListener('click', () => {
+        const startVal = document.getElementById('period-start-date').value;
+        const endVal = document.getElementById('period-end-date').value;
+
+        if (!startVal || !endVal) {
+            alert("시작일과 종료일을 올바르게 선택해 주세요.");
+            return;
+        }
+
+        const startDate = new Date(startVal);
+        const endDate = new Date(endVal);
+
+        if (endDate < startDate) {
+            alert("종료일은 시작일보다 빠를 수 없습니다.");
+            return;
+        }
+
+        // 시작일과 종료일 사이의 날짜 배열 생성 (최대 14일 제한)
+        const dateList = [];
+        const tempDate = new Date(startDate);
+
+        while (tempDate <= endDate) {
+            const m = tempDate.getMonth() + 1;
+            const d = tempDate.getDate();
+            dateList.push(`${m}/${d}`);
+            tempDate.setDate(tempDate.getDate() + 1);
+        }
+
+        if (dateList.length > 14) {
+            alert("조회 기간은 최대 14일까지 설정 가능합니다. (차트 뷰포트 레이아웃 최적화)");
+            return;
+        }
+
+        appState.currentWeekDates = dateList;
+
+        // 상단 범위 텍스트 변경: [yyyy/mm/dd] ~ [yyyy/mm/dd]
+        const formatRangeDate = (dateObj) => {
+            const y = dateObj.getFullYear();
+            const m = (dateObj.getMonth() + 1).toString();
+            const d = dateObj.getDate().toString();
+            return `${y}/${m}/${d}`;
+        };
+
+        document.getElementById('txt-date-range').textContent = `[${formatRangeDate(startDate)}] ~ [${formatRangeDate(endDate)}]`;
+        
+        periodSelectPopup.classList.remove('active');
+        
+        // 차트 및 통계 카드 갱신
+        renderComplianceChart();
+        renderComplianceStats();
+
+        alert("선택하신 기간으로 조회 스케줄러가 반영되었습니다.");
+    });
+
+    // ------------------------------------------
     // 우측 데모 내비게이터 바인딩
     // ------------------------------------------
     document.querySelectorAll('.demo-nav-btn').forEach(btn => {

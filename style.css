@@ -1244,12 +1244,22 @@ body {
     font-weight: 700;
     color: var(--text-dark);
     cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.date-range-content:hover {
+    color: var(--purple-main);
+}
+
+.date-range-content:hover .icon-calendar {
+    color: var(--purple-main);
 }
 
 .icon-calendar {
     width: 16px;
     height: 16px;
     color: var(--text-muted);
+    transition: color 0.2s ease;
 }
 
 .icon-dropdown-small {
@@ -2098,4 +2108,138 @@ body {
     color: var(--white);
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     z-index: 10;
+}
+
+/* ==========================================
+   [신규] [기간 설정] 상세 모달 팝업 스타일
+   ========================================== */
+.period-modal-card {
+    background: var(--white);
+    border-radius: 28px;
+    width: 100%;
+    max-width: 320px;
+    padding: 24px 20px 0px 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(110, 83, 255, 0.15);
+    animation: popupScale 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.period-popup-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--purple-main);
+    text-align: center;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.period-popup-subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.period-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.period-form-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.period-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dark);
+    width: 60px;
+}
+
+.period-field-input {
+    flex: 1;
+    height: 38px;
+    background-color: #F4F3FF;
+    border: 1px solid #E4E2F9;
+    border-radius: 10px;
+    padding: 0 10px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text-dark);
+    outline: none;
+    font-family: inherit;
+}
+
+.period-presets {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.btn-preset-date {
+    height: 34px;
+    background-color: var(--white);
+    border: 1px solid #EAECF0;
+    border-radius: 8px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.btn-preset-date:hover {
+    background-color: var(--purple-light);
+    color: var(--purple-main);
+    border-color: var(--purple-light);
+}
+
+/* 하단 2분할 버튼 그룹 */
+.period-popup-buttons {
+    display: flex;
+    margin: 0 -20px 0 -20px;
+    width: calc(100% + 40px);
+    height: 48px;
+    background-color: var(--purple-main);
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.btn-period-action {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.25);
+    transition: background-color 0.2s;
+}
+
+.btn-period-action:last-child {
+    border-right: none;
+}
+
+.btn-period-action:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.btn-period-action:active {
+    background-color: rgba(255, 255, 255, 0.25);
 }
